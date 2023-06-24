@@ -1,48 +1,41 @@
 package org.example;
 
-import org.example.config.PostgresDatabase;
-import org.example.users.Gender;
-import org.example.users.User;
-import org.example.users.UserDao;
+import org.example.enitty.Level;
+import org.example.enitty.Worker;
+import org.example.hibernate.HibernateUtils;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public class Main {
     public static void main (String[] args) {
-        Connection connection = PostgresDatabase.getInstance().getPostgresConnection();
-        UserDao userDao = new UserDao(connection);
+        Session session = HibernateUtils.getInstance().getSessionFactory().openSession();
 
-//        userDao.saveUser("Mark4", LocalDate.now(), true, Gender.MALE);
+//        // TODO create worker
+//        Transaction transaction = session.beginTransaction();
+//            Worker newWorker = new Worker();
+//            newWorker.setName("Taras");
+//            newWorker.setBirthday(LocalDate.of(2001, 12, 21));
+//            newWorker.setSalary(5000);
+//            newWorker.setLevels(Level.MIDDLE);
+//            session.persist(newWorker);
+//        transaction.commit();
 
-//        Optional<User> optionalUser2 = userDao.findUserById(2L);
-//        if (optionalUser2.isPresent()) {
-//            System.out.println("Result: " + optionalUser2.get());
-//        }
+//         //TODO get worker by id or list of workers
+//        Worker gettedWorker = session.get(Worker.class, 1L);
+//        System.out.println("worker ==> " + gettedWorker);
 //
-//        Optional<User> optionalUser999 = userDao.findUserById(999L);
-//        if (optionalUser999.isPresent()) {
-//            System.out.println("Result: " + optionalUser999.get());
-//        } else {
-//            System.out.println("No user with id = " + 999L);
-//        }
+//        List<Worker> workers = session.createQuery("from Worker", Worker.class).list();
+//        workers.forEach(worker -> System.out.println("worker list ==> " + worker));
 
-//        List<User> allUsers = userDao.findAllUser();
-//        allUsers.forEach(user -> System.out.println(user.toString()));
-
-//        List<User> allActiveUsers = userDao.findAllUserWithActiveStatus(true);
-//        System.out.println("ACTIVE: ");
-//        allActiveUsers.forEach(user -> System.out.println(user.toString()));
-//
-//        List<User> allDeactivateUsers = userDao.findAllUserWithActiveStatus(false);
-//        System.out.println("DEACTIVATE: ");
-//        allDeactivateUsers.forEach(user -> System.out.println(user.toString()));
-
-//        Optional<User> userUpdateOptional = userDao.updateUser(2L, "Siri1",
-//                LocalDate.now(), true, Gender.FEMALE);
-//        userUpdateOptional.ifPresent(user -> System.out.println("Result: " + user));
-
+//        // TODO update worker
+//        Transaction transaction = session.beginTransaction();
+//            Worker existing = session.get(Worker.class, 1L);
+//            existing.setName("Modified Taras");
+//            session.persist(existing);
+//        transaction.commit();
+//        session.close();
     }
 }
