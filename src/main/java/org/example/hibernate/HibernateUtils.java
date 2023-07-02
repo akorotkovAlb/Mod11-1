@@ -1,5 +1,7 @@
 package org.example.hibernate;
 
+import org.example.enitty.Client;
+import org.example.enitty.Project;
 import org.example.enitty.Worker;
 import org.example.props.PropertyReader;
 import org.flywaydb.core.Flyway;
@@ -14,6 +16,8 @@ public class HibernateUtils {
     private HibernateUtils() {
         this.sessionFactory = new Configuration()
                 .addAnnotatedClass(Worker.class)
+                .addAnnotatedClass(Project.class)
+                .addAnnotatedClass(Client.class)
                 .buildSessionFactory();
         flywayMigration(PropertyReader.getConnectionUrlForPostgres(),
                 PropertyReader.getUserForPostgres(),
