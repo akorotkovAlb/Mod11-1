@@ -1,0 +1,24 @@
+package org.example.dao.project;
+
+import org.example.enitty.Project;
+import org.example.hibernate.HibernateUtils;
+import org.hibernate.Session;
+import java.time.Duration;
+
+import java.util.List;
+
+public class ProjectDaoImpl implements ProjectDao {
+
+
+    @Override
+    public List<Project> getLongestProjects () {
+        try (Session session = HibernateUtils.getInstance().getSessionFactory().openSession()) {
+            Duration maxDuration = session.createQuery("select MAX(trunc(finishDate - startDate)) as days from Project", Duration.class)
+                    .getSingleResult();
+            return session
+                    .createQuery("FROM Project WHERE trunc(finishDate - startDate) = :maxDuration", Project.class)
+                    .setParameter("maxDuration", maxDuration)
+                    .list();
+        }
+    }
+}
