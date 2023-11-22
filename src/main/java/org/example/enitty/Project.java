@@ -1,5 +1,6 @@
 package org.example.enitty;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,6 +40,6 @@ public class Project {
     @Column(name = "finish_date", nullable = false)
     private LocalDate finishDate;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Worker> workers = new ArrayList<>();
 }
